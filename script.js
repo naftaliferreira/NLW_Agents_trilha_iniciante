@@ -7,7 +7,22 @@ const form = document.getElementById('form');
 
 const perguntarAI = async (question, game, apiKey) => {
     const model = "gemini-2.0-flash"; // trocar nome do modelo Gemini quando for necessário usar versão mais atualizada
-    const geminiURL = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`
+    const geminiURL = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?=${apiKey}`;
+    const pergunta = ``;
+
+    const contents = [{
+       parts: [{
+        text: pergunta
+       }] 
+    }];
+
+    // Chamada API
+    const response = await fetch(geminiURL, {
+        method: 'POST', 
+        headers: {
+            'content-type': 'application/json'
+        }
+    })
 }
 
 const enviarFormulario = (event) => {
