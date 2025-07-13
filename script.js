@@ -8,7 +8,9 @@ const form = document.getElementById('form');
 const perguntarAI = async (question, game, apiKey) => {
     const model = "gemini-2.0-flash"; // trocar nome do modelo Gemini quando for necessário usar versão mais atualizada
     const geminiURL = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?=${apiKey}`;
-    const pergunta = ``;
+    const pergunta = `
+        olha, tenho esse jogo ${game} e queria saber ${question}
+    `;
 
     const contents = [{
        parts: [{
@@ -21,17 +23,22 @@ const perguntarAI = async (question, game, apiKey) => {
         method: 'POST', 
         headers: {
             'content-type': 'application/json'
-        }
+        }, 
+        body: JSON.stringify({
+            contents:
+        })
     })
+
+    const data = await response.json();
+    console.log()
+    return 
 }
 
-const enviarFormulario = (event) => {
+const enviarFormulario = async (event) => {
     event.preventDefault();
     const apiKey = apiKeyInput.value;
     const game = gameSelect.value;
     const question = questionInput.value;
-
-    console.log({apiKey, game, question})
 
     if(apiKey == '' || game == '' || question == '') {
         alert('Por favor, preencha todos os campos');
@@ -44,7 +51,7 @@ const enviarFormulario = (event) => {
 
     try {
         // perguntar para a IA
-        perguntarAI();
+        await perguntarAI();
 
     } catch(error) {
         console.log('Erro: ', error)
